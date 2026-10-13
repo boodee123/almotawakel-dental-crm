@@ -1,0 +1,11 @@
+{
+  "name": "معمل المتوكل - إدارة الأطباء",
+  "short_name": "المتوكل",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f4f7f7",
+  "theme_color": "#0b6e69",
+  "icons": []
+}

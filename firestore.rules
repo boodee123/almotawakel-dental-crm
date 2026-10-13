@@ -1,0 +1,38 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+    function userDoc(uid) {
+      return get(/databases/$(database)/documents/users/$(uid));
+    }
+    function activeUser() {
+      return signedIn()
+        && userDoc(request.auth.uid).data.active == true;
+    }
+    function isAdmin() {
+      return activeUser()
+        && userDoc(request.auth.uid).data.role == "admin";
+    }
+
+    match /users/{uid} {
+      // المستخدم يقرأ ملفه فقط، والمدير يقرأ جميع الحسابات.
+      allow read: if signedIn() && (request.auth.uid == uid || isAdmin());
+
+      // التسجيل الذاتي ينشئ مندوبًا نشطًا فقط؛ لا يمكن ترقية النفس إلى مدير.
+      allow create: if signedIn()
+        && request.auth.uid == uid
+        && request.resource.data.role == "rep"
+        && request.resource.data.active == true
+        && request.resource.data.email == request.auth.token.email;
+
+      // التحكم في الأدوار والتفعيل/الإيقاف للمدير فقط.
+      allow update, delete: if isAdmin();
+    }
+
+    match /doctors/{doctorId} {
+      allow read, create, update, delete: if activeUser();
+    }
+  }
+}
