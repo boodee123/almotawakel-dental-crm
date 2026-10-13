@@ -7,7 +7,7 @@ import {
   addDoc, collection, deleteDoc, doc, onSnapshot, orderBy, query, serverTimestamp, updateDoc, setDoc
 } from "firebase/firestore";
 import { Search, Plus, LogOut, Users, MapPin, Phone, CalendarDays, Download, X, Pencil, Trash2, Activity } from "lucide-react";
-import { auth, db, firebaseConfigured } from "./firebase";
+import { auth, db, firebaseConfigured } from "./firebase.js";
 import "./style.css";
 
 const blank = { name:"", phone:"", governorate:"القاهرة", area:"", address:"", status:"جديد", notes:"", nextVisit:"" };
@@ -209,6 +209,6 @@ function App() {
   </div>;
 }
 
-function Setup(){return <main className="login-wrap"><section className="setup card"><div className="brand-mark">م</div><h1>معمل المتوكل</h1><h2>خطوة الإعداد الأولى</h2><p>المشروع جاهز كبداية، لكن يلزم ربطه بقاعدة Firebase الخاصة بك قبل تسجيل الدخول أو حفظ البيانات.</p><ol><li>أنشئ مشروعًا مجانيًا في Firebase.</li><li>فعّل Authentication بطريقة Email/Password وأنشئ حسابات المندوبين.</li><li>أنشئ Cloud Firestore وضع إعدادات Web App في <code>src/firebase.js</code>.</li><li>انسخ قواعد الأمان من ملف <code>firestore.rules</code> وانشرها من Firebase.</li></ol><p className="tiny">راجع README_AR.md للتعليمات الكاملة قبل استخدام بيانات حقيقية.</p></section></main>}
+function Setup(){return <main className="login-wrap"><section className="setup card"><div className="brand-mark">م</div><h1>معمل المتوكل</h1><h2>خطوة الإعداد الأولى</h2><p>المشروع جاهز كبداية، لكن يلزم ربطه بقاعدة Firebase الخاصة بك قبل تسجيل الدخول أو حفظ البيانات.</p><ol><li>أنشئ مشروعًا مجانيًا في Firebase.</li><li>فعّل Authentication بطريقة Email/Password وأنشئ حسابات المندوبين.</li><li>أنشئ Cloud Firestore وأضف إعدادات Web App إلى متغيرات البيئة <code>VITE_FIREBASE_*</code> في Netlify أو ملف <code>.env.local</code> محليًا، ثم أعد النشر أو تشغيل خادم التطوير.</li><li>انسخ قواعد الأمان من ملف <code>firestore.rules</code> وانشرها من Firebase.</li></ol><p className="tiny">راجع README_AR.md للتعليمات الكاملة قبل استخدام بيانات حقيقية.</p></section></main>}
 
 createRoot(document.getElementById("root")).render(<App/>);
