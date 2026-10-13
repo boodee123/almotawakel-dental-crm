@@ -21,7 +21,7 @@
 3. من Authentication > Users أنشئ حسابًا لكل شخص سيستخدم النظام. لا تضع رابط إنشاء حساب عام؛ أنشئ الحسابات بنفسك حتى تتحكم في الوصول.
 4. من Firestore Database أنشئ قاعدة بيانات.
 5. من Project settings > General > Your apps أضف تطبيق Web وانسخ إعدادات `firebaseConfig`.
-6. انسخ `.env.example` إلى `.env.local` وأدخل إعدادات مشروعك في متغيرات `VITE_FIREBASE_*`. المتغيرات المطلوبة هي `VITE_FIREBASE_API_KEY` و`VITE_FIREBASE_AUTH_DOMAIN` و`VITE_FIREBASE_PROJECT_ID` و`VITE_FIREBASE_APP_ID`؛ أما متغيرا التخزين والرسائل فاختياريان لهذه النسخة. يقرأ `src/firebase.js` هذه الإعدادات تلقائيًا، ولا تضع القيم في ملفات المصدر. أعد تشغيل خادم التطوير بعد تغييرها.
+6. افتح `src/firebase.js` واستبدل القيم `ADD_...` بإعدادات مشروعك.
 7. افتح Firestore Rules وانشر محتوى ملف `firestore.rules` للتجربة الأولية فقط.
 
 ## 2) تشغيل المشروع على الكمبيوتر
@@ -37,9 +37,7 @@ npm run dev
 2. في Netlify اختر Add new site > Import an existing project، ثم اربط المستودع.
 3. Build command: `npm run build`
 4. Publish directory: `dist`
-5. أضف متغيرات `VITE_FIREBASE_*` من `.env.example` إلى إعدادات البيئة في Netlify واجعلها متاحة أثناء البناء وفي سياقات النشر المطلوبة، ثم انشر الموقع. أي تغيير في المتغيرات يتطلب إعادة النشر. أضف الدومين المنشور إلى Authorized domains في Firebase Authentication إذا طلب Firebase ذلك.
-
-ملف `src/firebase.js` جزء من المستودع ويجب أن يبقى موجودًا ليتمكن Vite من حل الاستيراد. ملفات `.env` المحلية مستبعدة من Git. متغيرات `VITE_*` تظهر في كود المتصفح؛ استخدمها لإعدادات تطبيق Firebase Web فقط، ولا تضع فيها مفاتيح حساب خدمة أو أسرارًا. عند غياب إعداد مطلوب تظهر شاشة الإعداد بدلًا من محاولة تشغيل Firebase بإعدادات ناقصة.
+5. انشر الموقع. أضف الدومين المنشور إلى Authorized domains في Firebase Authentication إذا طلب Firebase ذلك.
 
 ## 4) تثبيته على Android
 بعد النشر على HTTPS، افتح رابط الموقع في Chrome على الهاتف > قائمة الثلاث نقاط > **Add to Home screen** أو **Install app** حسب ما يظهر. سيظهر بأيقونة على الشاشة ويفتح في نافذة شبيهة بالتطبيق. هذه النسخة لا تنتج APK مستقلًا.
